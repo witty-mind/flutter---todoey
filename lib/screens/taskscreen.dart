@@ -1,9 +1,31 @@
+import 'package:flutteer_begins/model/task.dart';
 import 'package:flutteer_begins/utils/constants.dart';
+import 'package:flutteer_begins/widgets/taskBottomSheets.dart';
 import 'package:flutteer_begins/widgets/tasklist.dart';
 import 'package:flutter/material.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
   const TaskScreen({Key? key}) : super(key: key);
+
+  @override
+  _TaskScreenState createState() => _TaskScreenState();
+}
+
+List<Task> tasks = [
+  Task(taskName: "Buy Milks", isDone: false),
+  Task(taskName: "Buy eggs", isDone: false),
+  Task(taskName: "Buy Vegs", isDone: false),
+];
+
+class _TaskScreenState extends State<TaskScreen> {
+  String getCallBackdata() {
+    setState(() {
+      print(
+          "New Task added. Here is the updated task list length ${tasks.length}");
+    });
+
+    return "String";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +33,14 @@ class TaskScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: kPrimaryColor,
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
+          onPressed: () => {
+            showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) => AddTaskScreen(
+                      taskList: tasks,
+                    ))
+          },
           backgroundColor: kPrimaryColor,
           child: Icon(Icons.add),
         ),
@@ -45,7 +74,7 @@ class TaskScreen extends StatelessWidget {
                           fontWeight: FontWeight.w700),
                     ),
                     Text(
-                      "12 Tasks",
+                      '{tasks.length} tasks',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 15.0,
@@ -58,7 +87,9 @@ class TaskScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: TasksList(),
+                child: TasksList(
+                  tasksList: tasks,
+                ),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
