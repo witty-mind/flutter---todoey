@@ -11,9 +11,7 @@ class TaskScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: kPrimaryColor,
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {
-            //TODO: Add Task
-          },
+          onPressed: () => {},
           backgroundColor: kPrimaryColor,
           child: Icon(Icons.add),
         ),
